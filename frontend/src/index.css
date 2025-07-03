@@ -4,7 +4,12 @@
   justify-content: space-between;
   position: sticky;
   top: 0;
+  margin-bottom: 100px;
   z-index: 999;
+  color: rgb(254, 254, 254);
+  height: 65px;
+  box-shadow: 0 0 10px rgb(54, 53, 53);
+  background-color: rgb(156, 95, 3);
 }
 
 .nav ul {
@@ -19,7 +24,7 @@
   text-decoration: none;
   color: var(--color-light--2);
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 500;
 }
 .logo-container{
 display: flex;
@@ -27,7 +32,7 @@ color: white;
 font-size: 26px;
 }
 .nav a.active {
-  color: orange;
+  color: rgb(16, 10, 0);
 }
 .logo-image {
   margin-right: 20px;
@@ -51,7 +56,7 @@ font-size: 26px;
   width: 70px;
   border-radius: 6px;
   color: white;
-  background-color: rgb(249, 169, 21);
+  background-color: rgb(47, 32, 5);
 }
 .home h1,
 h4 {
@@ -61,7 +66,7 @@ h4 {
   font-size: 55px;
   font-family: "Pacifico";
   letter-spacing: 6px;
-
+  padding-top: 60px;
 }
 .home {
   height: 40vh;
@@ -71,13 +76,14 @@ h4 {
   background-repeat: no-repeat;
   background-size: cover;
   background-position:center center	;
-   
+  height: 100vh;
 }
 .how-it-works {
-  padding: 2rem;
-  pointer-events: none;  backdrop-filter: blur(5px);
+  padding: 3rem;
+  pointer-events: none;
+  backdrop-filter: blur(5px);
   border: 1px solid rgb(144, 144, 144);
-  margin-top: 30px;
+  margin-top: 90px;
 
 }
 .home-nav{
@@ -111,4 +117,58 @@ body{
   display: flex;
   justify-content: space-around;
   margin-top: 1rem;
+}
+
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+  background-color: antiquewhite;
+}
+label{
+  color: black;
+}
+.auth-form {
+  background-color: #f9f9f9;
+  padding: 3rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.auth-form h2 {
+  margin-bottom: 1.5rem;
+  color: black;
+}
+
+.auth-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.auth-form button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.auth-form span {
+  font-weight: bold;
 }
