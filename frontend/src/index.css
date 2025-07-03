@@ -1,14 +1,114 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #fafafa;
+.nav {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
-h1 {
-  color: #222;
+.nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
 }
 
+.nav a:link,
+.nav a:visited {
+  text-decoration: none;
+  color: var(--color-light--2);
+  font-size: 18px;
+  font-weight: 800;
+}
+.logo-container{
+display: flex;
+color: white;
+font-size: 26px;
+}
+.nav a.active {
+  color: orange;
+}
+.logo-image {
+  margin-right: 20px;
+  height: 80px;
+  width: 80px;
+  margin-left: 20px;
+}
+.logo-name {
+  font-size: 23px;
+}
+.pages {
+  text-align: center;
+  margin-top: 200px;
+  font-weight: bold;
+  font-size: 40px;
+}
+.login-register-button {
+  border: none;
+  font-weight: bold;
+  height: 24px;
+  width: 70px;
+  border-radius: 6px;
+  color: white;
+  background-color: rgb(249, 169, 21);
+}
+.home h1,
+h4 {
+  text-align: center;
+}
+.home h1{
+  font-size: 55px;
+  font-family: "Pacifico";
+  letter-spacing: 6px;
+
+}
+.home {
+  height: 40vh;
+}
+.home-page {
+  background-image: url("public/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position:center center	;
+   
+}
+.how-it-works {
+  padding: 2rem;
+  pointer-events: none;  backdrop-filter: blur(5px);
+  border: 1px solid rgb(144, 144, 144);
+  margin-top: 30px;
+
+}
+.home-nav{
+  margin-left: 430px;
+}
+.home span{
+  text-align: center;
+  margin: 40px;
+  border: 1px solid;
+  padding: 8PX;
+  background-color: rgb(87, 64, 44);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.home span:hover{
+  background-color: white;
+  color: black;
+}
+h4{
+  word-spacing: px;
+}
+h2 {
+  text-align: center;
+}
+body{
+  color: white;
+  margin: 0;
+  background-color: black;
+}
+.how-it-works-texts {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
