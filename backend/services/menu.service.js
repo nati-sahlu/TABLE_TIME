@@ -8,7 +8,16 @@ async function getMenuByRestaurantId(restaurantId) {
 }
 
 
+async function createMenuItem(restaurantId, name, price, photo_url) {
+	const sql = `
+		INSERT INTO menu_items (restaurant_id, name, price, photo_url)
+		VALUES (?, ?, ?, ?)
+	`;
+	await db.query(sql, [restaurantId, name, price, photo_url || null]);
+}
+
 
 module.exports = {
 	getMenuByRestaurantId,
+	createMenuItem
 };
