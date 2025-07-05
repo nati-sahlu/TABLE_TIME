@@ -28,7 +28,20 @@ async function addMenuItem(req, res) {
 }
 
 
+async function deleteMenuItem(req, res) {
+	const menuItemId = req.params.id;
+
+	try {
+		await menuService.removeMenuItem(menuItemId);
+		res.json({ status: 'success', message: ' item removed' });
+	} catch (err) {
+		res.status(500).json({ status: 'error', message: err.message });
+	}
+}
+
 module.exports = {
 	fetchMenu,
-	addMenuItem
+	addMenuItem,
+	deleteMenuItem
+
 };
