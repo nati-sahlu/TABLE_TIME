@@ -9,3 +9,8 @@ async function fetchMenu(req, res) {
 		res.status(500).json({ status: 'error', message: err.message });
 	}
 }
+
+
+module.exports = {
+	fetchMenu,
+};
