@@ -10,30 +10,16 @@ async function getRestaurantsBySearch(query, status) {
 	}
 
 	if (status) {
-		sql += ' AND is_open = ?';
-		params.push(status === 'open' ? 1 : 0);
+		sql += ' AND status = ?';
+		params.push(status);
 	}
 
-	const results = await db.query(sql, params);
-	return results;
+	const rows = await db.query(sql, params);
+	return rows;
 }
 
 
-async function getRestaurantWithMenu(id) {
-	try {
-		const restaurant = await db.query(`SELECT * FROM restaurants WHERE id = ?`, [id]);
-		const menu = await db.query(`SELECT * FROM menu WHERE restaurant_id = ?`, [id]);
-
-		return {
-			restaurant: restaurant[0],menu
-		};
-	} catch (err) {
-		console.error("Error in getRestaurantWithMenu:", err);
-		throw err;
-	}
-}
 
 module.exports = {
 	getRestaurantsBySearch,
-	getRestaurantWithMenu
 };
