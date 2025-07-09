@@ -30,7 +30,39 @@ async function getUserOrders(req, res) {
 }
 
 
+async function getOrdersByRestaurant(req, res) {
+  const ownerId = req.params.owner_id;
+
+  try {
+    const restaurantId = await orderService.getRestaurantIdByOwner(ownerId);
+    if (!restaurantId) {
+      return res.status(404).json({ status: "error", message: "Restaurant not found" });
+    }
+
+    const orders = await orderService.getOrdersByRestaurantId(restaurantId);
+    res.status(200).json({ status: "success", orders });
+  } catch (err) {
+    res.status(500).json({ status: "error", message: "Unable to retrieve orders" });
+  }
+}
+
+
+async function acceptOrder(req, res) {
+  const orderId = req.params.order_id;
+
+  try {
+    await orderService.acceptOrder(orderId);
+    res.status(200).json({ status: "success", message: "Order accepted" });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ status: "error", message: "Unable to accept order" });
+  }
+}
+
 module.exports = {
 	placeOrder,
-	getUserOrders
+	getUserOrders,
+	getOrdersByRestaurant,
+	acceptOrder,
 };
