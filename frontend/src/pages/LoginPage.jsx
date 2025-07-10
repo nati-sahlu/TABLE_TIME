@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { PageNav } from "../components/PageNav";
 import { useNavigate } from "react-router-dom";
 
+import { toast } from "react-toastify";
+
+
 export function LoginPage({
   setIsLoggedIn,
   setUserRole,
@@ -49,10 +52,12 @@ export function LoginPage({
 
         if (isRegistering) {
           if (data.status === "success") {
-            alert("Registered successfully!");
+
+            toast.success("Registered successfully!");
             setIsRegistering(false);
           } else {
-            alert("Registration failed.");
+            toast.error(data.message || "Registration failed.");
+
           }
         } else {
           if (data.token) {
@@ -63,16 +68,20 @@ export function LoginPage({
             if (role === "owner" && data.restaurant) {
               localStorage.setItem("restaurantId", data.restaurant.id);
             }
-            alert("Logged in successfully!");
+
+            toast.success("Logged in successfully!");
             navigate(role === "owner" ? "/restaurant-menu" : "/restaurants");
           } else {
-            alert("Login failed.");
+            toast.error(data.message || "Login failed.");
+
           }
         }
       })
       .catch((err) => {
         console.error(err);
-        alert("Server error.");
+
+        toast.error("Server error.");
+
       });
   }
 
@@ -119,7 +128,7 @@ export function LoginPage({
                 required
               />
 
-              {/*restaurant owner */}
+
               {role === "owner" && (
                 <>
                   <label>Restaurant Location:</label>

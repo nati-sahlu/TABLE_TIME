@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 export function RestaurantMenuPage() {
   const restaurantId = localStorage.getItem("restaurantId");
@@ -19,7 +20,7 @@ export function RestaurantMenuPage() {
         setMenuItems(data);
       } catch (err) {
         console.error("Failed to fetch menu:", err);
-        alert("Could not load menu items.");
+        toast.error("Could not load menu items.");
       }
     }
 
@@ -52,34 +53,35 @@ export function RestaurantMenuPage() {
       if (res.ok) {
         setMenuItems((prev) => [...prev, { ...form, id: Date.now() }]);
         setForm({ name: "", image: "", price: "" });
+        toast.success("Menu item added successfully!");
       } else {
-        alert("Failed to add menu item: " + data.message);
+        toast.error("Failed to add menu item: " + data.message);
       }
     } catch (err) {
       console.error("Add item failed:", err);
-      alert("Could not add menu item.");
+      toast.error("Could not add menu item.");
     }
   }
 
-async function handleDeleteItem(id) {
-  try {
-    const res = await fetch(`http://localhost:4000/api/menu/${id}`, {
-      method: "DELETE",
-    });
+  async function handleDeleteItem(id) {
+    try {
+      const res = await fetch(`http://localhost:4000/api/menu/${id}`, {
+        method: "DELETE",
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      setMenuItems((prev) => prev.filter((item) => item.id !== id));
-    } else {
-      alert("Failed to delete: " + data.message);
+      if (res.ok) {
+        setMenuItems((prev) => prev.filter((item) => item.id !== id));
+        toast.success("Menu item removed successfully!");
+      } else {
+        toast.error("Failed to delete: " + data.message);
+      }
+    } catch (err) {
+      console.error("Delete failed:", err);
+      toast.error("Could not delete menu item.");
     }
-  } catch (err) {
-    console.error("Delete failed:", err);
-    alert("Could not delete menu item.");
   }
-}
-
 
   return (
     <div className="menu-management" style={{ padding: "2rem" }}>
