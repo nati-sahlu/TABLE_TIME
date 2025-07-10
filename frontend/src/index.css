@@ -2,14 +2,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
   top: 0;
   margin-bottom: 100px;
   z-index: 999;
   color: rgb(254, 254, 254);
-  height: 65px;
+  height: 55px;
   box-shadow: 0 0 10px rgb(54, 53, 53);
-  background-color: rgb(156, 95, 3);
+  background-color: rgb(220, 146, 35);
 }
 
 .nav ul {
@@ -26,10 +29,10 @@
   font-size: 18px;
   font-weight: 500;
 }
-.logo-container{
-display: flex;
-color: white;
-font-size: 26px;
+.logo-container {
+  display: flex;
+  color: white;
+  font-size: 26px;
 }
 .nav a.active {
   color: rgb(16, 10, 0);
@@ -57,12 +60,13 @@ font-size: 26px;
   border-radius: 6px;
   color: white;
   background-color: rgb(47, 32, 5);
+  cursor: pointer;
 }
 .home h1,
 h4 {
   text-align: center;
 }
-.home h1{
+.home h1 {
   font-size: 55px;
   font-family: "Pacifico";
   letter-spacing: 6px;
@@ -75,7 +79,7 @@ h4 {
   background-image: url("public/background.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position:center center	;
+  background-position: center center;
   height: 100vh;
 }
 .how-it-works {
@@ -84,59 +88,208 @@ h4 {
   backdrop-filter: blur(5px);
   border: 1px solid rgb(144, 144, 144);
   margin-top: 90px;
-
 }
-.home-nav{
-  margin-left: 430px;
+.home-nav {
+  margin-left:10px;
 }
-.home span{
+.home span {
   text-align: center;
   margin: 40px;
   border: 1px solid;
-  padding: 8PX;
+  padding: 8px;
   background-color: rgb(87, 64, 44);
   border-radius: 6px;
   cursor: pointer;
 }
-.home span:hover{
+.home span:hover {
   background-color: white;
   color: black;
 }
-h4{
+h4 {
   word-spacing: px;
 }
 h2 {
   text-align: center;
 }
-body{
+/* General */
+body {
   color: white;
   margin: 0;
-  background-color: black;
+  background-color: rgb(248, 242, 242);
 }
+
+
+
+/* Home Page */
+.home-page {
+  background-image: url("public/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+/* Home Banner */
+.home {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home h1 {
+  font-size: 55px;
+  font-family: "Pacifico", cursive;
+  letter-spacing: 6px;
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.home-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.home span {
+  text-align: center;
+  margin: 10px;
+  border: 1px solid;
+  padding: 8px 16px;
+  background-color: rgb(87, 64, 44);
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.home span:hover {
+  background-color: white;
+  color: black;
+}
+
+/* How It Works Section */
+.how-it-works {
+  backdrop-filter: blur(5px);
+  border: 1px solid rgb(144, 144, 144);
+  background-color: rgba(36, 36, 36, 0.3);
+  color: white;
+  margin-top: 70px;
+}
+
 .how-it-works-texts {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   margin-top: 1rem;
+  gap: 20px;
 }
+
+.how-it-works-texts div {
+  width: 250px;
+  text-align: center;
+}
+
+/* Top Restaurants */
+.top-restaurants {
+  padding: 3rem;
+  background-color: white;
+  color: black;
+}
+
+.top-restaurants-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  gap: 20px;
+}
+
+.top-restaurants-card {
+  border: 1px solid #3d3c3c;
+  padding: 1rem;
+  width: 30%;
+  min-width: 250px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.top-restaurants-card:hover {
+  background-color: rgba(252, 166, 7, 0.1);
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+/* Delivery Section */
+.delivery-and-pricing {
+  background-color: #555;
+  color: white;
+  padding: 3rem;
+}
+
+.delivery-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+}
+
+.delivery-container p {
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.pricing ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+
+.pricing li {
+  background-color: #444;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+.footer {
+  padding: 2rem;
+  background-color: #222;
+  text-align: center;
+  color: #fff;
+  margin-top: auto;
+}
+
+
+/*Auth*/
 
 .auth-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 3rem;
-  background-color: antiquewhite;
+  background-image: url("public/login-background.png");
+  background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 }
-label{
+label {
   color: black;
 }
 .auth-form {
-  background-color: #f9f9f9;
-  padding: 3rem;
+  background-color: antiquewhite;
+  padding: 2rem;
   border-radius: 10px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-top: 50px;
+  box-shadow: 0 4px 200px rgba(0, 0, 0, 0.5);
+  margin-top: 20px;
 }
 
 .auth-form h2 {
@@ -151,7 +304,7 @@ label{
 }
 
 .auth-form input {
-  width: 100%;
+  width: 300px;
   padding: 0.6rem;
   margin-top: 0.4rem;
   border: 1px solid #ccc;
@@ -160,15 +313,410 @@ label{
 
 .auth-form button {
   margin-top: 1.5rem;
-  width: 100%;
+  width: 250px;
   padding: 0.7rem;
-  background-color: #222;
+  background-color: #fcad03;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
 }
+button:hover {
+  opacity: 0.7;
+  box-shadow: 0px 0px 3px rgb(120, 118, 118);
+}
 
 .auth-form span {
   font-weight: bold;
+  color: #2d05f7;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.role-toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.role-toggle button {
+  padding: 0.5rem 1rem;
+  background: #eee;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 100px;
+  color: #000;
+}
+
+.role-toggle button.active {
+  background-color: #fcad03;
+  color: #fff;
+  border-color: #222;
+}
+.auth-toggle {
+  color: black;
+}
+/* restaurant page*/
+.restaurant-page {
+  display: flex;
+  height: calc(100vh - 60px);
+  color: black;
+  margin-top: 50px;
+}
+
+.restaurant-list {
+  width: 40%;
+  background-color: rgba(245, 244, 242, 0.1);
+  overflow-y: auto;
+}
+
+.restaurant-menu {
+  width: 60%;
+  padding: rem;
+  background-color: rgba(250, 235, 215, 0.3);
+  overflow-y: auto;
+}
+
+.restaurant-card {
+  background-color: rgba(245, 244, 242, 0.1);
+  border-bottom: 1px solid rgba(204, 164, 111, 0.5);
+  padding: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+  height: 60px;
+}
+
+.restaurant-card:hover,
+.restaurant-card.selected {
+  background-color: rgba(250, 235, 215, 0.5);
+}
+.restaurant-orders{
+  color: black;
+}
+.search-bar {
+  width: 270px;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-left: 80px;
+}
+.search-bar:active {
+  border: 1px solid orange;
+}
+.restaurant-card h3 {
+  font-size: 16px;
+  margin-left: 20px;
+}
+.restaurant-card p {
+  margin-left: 20px;
+}
+.restaurant-list::-webkit-scrollbar-thumb {
+  background-color: #f5f0eb;
+  border-radius: 10px;
+  border: 2px solid #e4dcd2;
+}
+.restaurant-list::-webkit-scrollbar-track {
+  background: #ecdccf;
+  border-radius: 10px;
+}
+.restaurant-list::-webkit-scrollbar {
+  width: 8px;
+}
+/* menu*/
+.menu-grid {
+  display: grid;
+  grid-template-columns: auto;
+  margin-top: 1rem;
+}
+
+.menu-cards {
+  background-color: rgba(229, 228, 227, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  width: 150px;
+  height: 200px;
+  margin-left: 19px;
+}
+.menu-images {
+  height: 90px;
+  width: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.order-button {
+  padding: 4px;
+  width: 152px;
+  background-color: #fcac23;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.order-button:hover {
+opacity: 0.7;
+}
+/*About and contact*/
+.about-content {
+  max-width: 650px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: #fffaf4;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.about-content h1 {
+  font-size: 1.8rem;
+  color: #fd7905;
+  margin-bottom: 1rem;
+}
+
+.about-content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+
+.about-footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 1px solid #eee;
+  background-color: #fffdf8;
+}
+
+.about-footer p {
+  margin-bottom: 0.6rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.social-icons a {
+  color: #fd7905;
+  font-size: 1.4rem;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.social-icons a:hover {
+  color: #e76b00;
+  transform: scale(1.1);
+}
+
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.contact-content {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: #fffaf5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
+  text-align: left;
+  color: #333;
+}
+
+.contact-content h1 {
+  font-size: 1.6rem;
+  color: #fd7905;
+  margin-bottom: 0.8rem;
+}
+
+.contact-content p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.contact-info {
+  border-top: 1px solid #ddd;
+}
+
+.contact-info p {
+  margin: 0.5rem 0;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.contact-form button {
+  width: fit-content;
+  padding: 0.6rem 1.4rem;
+  background-color: #fd7905;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #e76b00;
+}
+
+.status-msg {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: green;
+}
+
+/* Orders page*/
+.orders-page {
+  padding: 2rem;
+  color: #000;
+  margin-top: 40px;
+}
+.order-item {
+  margin-top: 30px;
+}
+
+.orders-list {
+  list-style: none;
+  padding: 0;
+}
+
+.order-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: #fafafa;
+}
+/* menu*/
+.menu-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.menu-management {
+  color: black;
+  margin-top: 50px;
+}
+.menu-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  width: 200px;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+.menu-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+.add-form input {
+  display: block;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+}
+.add-button,
+.delete-button {
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+/* Balance pop up*/
+.balance-popup {
+  position: fixed;
+  top: 100px;
+  right: 50px;
+  background-color: #fff;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #000;
+  width: 300px;
+  font-family: sans-serif;
+}
+
+.balance-popup-content h2 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.balance-popup-content > div {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.balance-popup-content button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f2a521;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.balance-popup-content button:hover {
+  background-color: #095bb5;
+}
+
+.balance-popup-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.balance-popup-content input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.balance-button{
+ cursor: pointer;
+}
+.balance-button:active{
+  color: #000;
 }
