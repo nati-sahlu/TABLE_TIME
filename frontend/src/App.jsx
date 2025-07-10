@@ -9,6 +9,8 @@ import { OrdersPage } from "./pages/OrdersPage";
 import { PageNav } from "./components/PageNav";
 import { RestaurantOrdersPage } from "./pages/RestaurantOrdersPage";
 import { RestaurantMenuPage } from "./pages/RestaurantMenuPage";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,9 +34,9 @@ export default function App() {
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         userRole={userRole}
-        userId={loggedInUser?.id}  
+        userId={loggedInUser?.id}
       />
-
+      <ToastContainer position="top-center" autoClose={3000} />
       <Routes>
         <Route
           path="/"

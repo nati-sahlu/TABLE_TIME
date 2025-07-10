@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
@@ -18,7 +19,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
         setRestaurants(data);
       } catch (error) {
         console.error("Failed to fetch restaurants:", error);
-        alert("Failed to load restaurants. Please try again later.");
+        toast.error("Failed to load restaurants. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -71,7 +72,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                   if (isMobile) setShowMenuMobile(true);
                 } catch (err) {
                   console.error("Failed to load menu", err);
-                  alert("Menu load failed");
+                  toast.error("Menu load failed.");
                 }
               }}
             >
@@ -115,7 +116,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                       className="order-button"
                       onClick={async () => {
                         if (!isLoggedIn) {
-                          alert("Please log in to place an order.");
+                          toast.warn("Please log in to place an order.");
                           navigate("/login");
                           return;
                         }
@@ -127,12 +128,12 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                           const balanceData = await balanceRes.json();
 
                           if (!balanceRes.ok) {
-                            alert("Failed to fetch balance.");
+                            toast.error("Failed to fetch balance.");
                             return;
                           }
 
                           if (balanceData.balance < item.price) {
-                            alert("Insufficient balance to place this order.");
+                            toast.error("Insufficient balance to place this order.");
                             return;
                           }
                           console.log("Sending order:", {
@@ -156,7 +157,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
 
                           const data = await res.json();
                           if (res.ok && data.status === "success") {
-                            alert("Order placed!");
+                            toast.success("Order placed!");
                             handlePlaceOrder({
                               id: data.order_id,
                               restaurant: selectedRestaurant.name,
@@ -164,11 +165,11 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                               status: "pending",
                             });
                           } else {
-                            alert("Failed to place order.");
+                            toast.error("Failed to place order.");
                           }
                         } catch (err) {
                           console.error("Error placing order:", err);
-                          alert("Order failed. Try again.");
+                          toast.error("Order failed. Try again.");
                         }
                       }}
                     >

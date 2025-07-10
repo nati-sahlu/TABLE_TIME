@@ -1,10 +1,10 @@
 const { logIn } = require("../services/login.service");
 const db = require("../config/db.config");
-const { generateToken } = require("../utils/token");
 
 async function login(req, res) {
   const { email, password } = req.body;
   const role = req.params.role;
+
 
   if (!role || !["user", "owner"].includes(role)) {
     return res.status(400).json({
@@ -19,6 +19,7 @@ async function login(req, res) {
     if (result && result.length > 0) {
       const user = result[0];
 
+  
       let restaurant = null;
       if (role === "owner") {
         const [restaurantRows] = await db.query(
@@ -28,18 +29,12 @@ async function login(req, res) {
         restaurant = restaurantRows[0];
       }
 
-      const token = generateToken({
-        id: user.id,
-        email: user.email,
-        role: user.role,
-      });
-
       res.status(200).json({
         status: "success",
         message: "login successful",
-        token,
+        token: "mockToken123",
         user,
-        restaurant,
+        restaurant, //  Send restaurant info if owner
       });
     } else {
       res.status(401).json({ status: "failure", message: "login failed" });
@@ -50,4 +45,3 @@ async function login(req, res) {
 }
 
 module.exports = { login };
-

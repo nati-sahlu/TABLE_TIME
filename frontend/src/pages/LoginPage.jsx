@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { PageNav } from "../components/PageNav";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { toast } from "react-toastify";
 
@@ -52,7 +53,6 @@ export function LoginPage({
 
         if (isRegistering) {
           if (data.status === "success") {
-
             toast.success("Registered successfully!");
             setIsRegistering(false);
           } else {
