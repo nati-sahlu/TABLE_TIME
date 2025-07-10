@@ -1,19 +1,18 @@
-const mysql = require('mysql2/promise');
+const mysql = require("mysql2/promise");
+require("dotenv").config();
 
-const dbConfig = {
-	connectionLimit: 10,
-	socketPath: process.env.DB_SOCKET_PATH,
-	password: process.env.DB_PASSWORD,
-	user: process.env.DB_USER,
-	host: process.env.DB_HOST,
-	database: process.env.DB_NAME,
+const pool = mysql.createPool({
+  host: process.env.DB_HOST, 
+  user: process.env.DB_USER, 
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  charset: "utf8mb4",
+});
+
+module.exports = {
+  query: (sql, params) => pool.execute(sql, params),
+  getConnection: () => pool.getConnection(),
 };
-
-const pool = mysql.createPool(dbConfig);
-
-async function query(sql, params) {
-	const [rows] = await pool.execute(sql, params);
-	return rows;
-}
-
-module.exports = { query };
