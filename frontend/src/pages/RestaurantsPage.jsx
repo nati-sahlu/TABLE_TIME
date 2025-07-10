@@ -7,6 +7,8 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const isMobile = window.innerWidth <= 768;
+  const [showMenuMobile, setShowMenuMobile] = useState(false);
 
   useEffect(() => {
     async function fetchRestaurants() {
@@ -35,7 +37,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
   });
 
   return (
-    <div className="restaurant-page">
+    <div className={`restaurant-page ${showMenuMobile ? "show-menu" : ""}`}>
       <div className="restaurant-list">
         <h2>Restaurants</h2>
         <input
@@ -66,6 +68,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                     id: item.id || item.menu_item_id,
                   }));
                   setSelectedRestaurant({ ...rest, menu: formattedMenu });
+                  if (isMobile) setShowMenuMobile(true);
                 } catch (err) {
                   console.error("Failed to load menu", err);
                   alert("Menu load failed");
@@ -84,6 +87,15 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
       <div className="restaurant-menu">
         {selectedRestaurant ? (
           <>
+            {selectedRestaurant && isMobile && showMenuMobile && (
+              <button
+                className="back-button"
+                onClick={() => setShowMenuMobile(false)}
+              >
+                ← Back to Restaurants
+              </button>
+            )}
+
             <h2>{selectedRestaurant.name} - Menu</h2>
             <div className="menu-grid">
               {selectedRestaurant.menu && selectedRestaurant.menu.length > 0 ? (
@@ -109,7 +121,6 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                         }
 
                         try {
-                          // Step 1: Check balance
                           const balanceRes = await fetch(
                             `http://localhost:4000/api/balance/${userId}`
                           );
@@ -124,8 +135,6 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                             alert("Insufficient balance to place this order.");
                             return;
                           }
-
-                          // Step 2: Place order
                           console.log("Sending order:", {
                             user_id: userId,
                             menu_item_id: item.id,
