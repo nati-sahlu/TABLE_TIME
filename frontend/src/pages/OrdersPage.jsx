@@ -1,9 +1,27 @@
-import React from "react";
-// tempOrders.js
+// User Orders Page
+import React, { useState, useEffect } from "react";
 
+export function OrdersPage({ userId }) {
+  const [orders, setOrders] = useState([]);
 
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        const response = await fetch(
+          `http://localhost:4000/api/orders/${userId}`
+        );
+        const data = await response.json();
+        if (data.status === "success") {
+          setOrders(data.orders);
+        }
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    }
 
-export function OrdersPage({ orders }) {
+    fetchOrders();
+  }, [userId]);
+
   return (
     <div className="orders-page">
       <h2>Your Orders</h2>
@@ -12,13 +30,15 @@ export function OrdersPage({ orders }) {
       ) : (
         <ul className="orders-list">
           {orders.map((order) => (
-            <li key={order.id} className="order-card">
-              <h3>Restaurant: {order.restaurant}</h3>
-              <p>Items: {order.items.join(", ")}</p>
-              <p style={{
-                color: order.status === "pending" ? "orange" : "green",
-                fontWeight: "bold",
-              }}>
+            <li key={order.order_id} className="order-card">
+              <h3>Restaurant: {order.restaurant_name}</h3>
+              <p>Items: {order.menu_name}</p>
+              <p
+                style={{
+                  color: order.status === "pending" ? "orange" : "green",
+                  fontWeight: "bold",
+                }}
+              >
                 Status: {order.status}
               </p>
             </li>
