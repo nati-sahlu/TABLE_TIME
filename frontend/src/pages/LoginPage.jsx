@@ -1,25 +1,41 @@
 import React, { useState } from "react";
 import { PageNav } from "../components/PageNav";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-export function LoginPage() {
+export function LoginPage({
+  setIsLoggedIn,
+  setUserRole,
+  setLoggedInUser,
+  isLoggedIn,
+  userRole,
+}) {
   const [isRegistering, setIsRegistering] = useState(false);
+  const [role, setRole] = useState("user");
+  const navigate = useNavigate();
 
   function toggleForm() {
     setIsRegistering((prev) => !prev);
   }
+
   function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
 
     const payload = {
-      name: form.name?.value, // only used during registration
+      name: form.name?.value,
       email: form.email.value,
       password: form.password.value,
+      role,
     };
+    if (isRegistering && role === "owner") {
+      payload.location = form.location.value;
+    }
 
+    const API_BASE_URL = "http://localhost:4000/api";
     const endpoint = isRegistering
-      ? "http://localhost:5000/api/register"
-      : "http://localhost:5000/api/login";
+      ? `${API_BASE_URL}/${role}/register`
+      : `${API_BASE_URL}/${role}/login`;
 
     fetch(endpoint, {
       method: "POST",
@@ -31,52 +47,117 @@ export function LoginPage() {
       .then((res) => res.json())
       .then((data) => {
         console.log("RESPONSE:", data);
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          alert("Login/Register successful!");
-          navigate("/restaurants"); // go to next page
+
+        if (isRegistering) {
+          if (data.status === "success") {
+            toast.success("Registered successfully!");
+            setIsRegistering(false);
+          } else {
+            toast.error(data.message || "Registration failed.");
+          }
         } else {
-          alert("❌ Something went wrong.");
+          if (data.token) {
+            localStorage.setItem("token", data.token);
+            setIsLoggedIn(true);
+            setUserRole(role);
+            setLoggedInUser(data.user);
+            if (role === "owner" && data.restaurant) {
+              localStorage.setItem("restaurantId", data.restaurant.id);
+            }
+            toast.success("Logged in successfully!");
+            navigate(role === "owner" ? "/restaurant-menu" : "/restaurants");
+          } else {
+            toast.error(data.message || "Login failed.");
+          }
         }
       })
       .catch((err) => {
         console.error(err);
-        alert("❌ Server error.");
+        toast.error("Server error.");
       });
   }
 
-
   return (
     <div className="auth-page">
-      <PageNav />
+      <PageNav
+        isLoggedIn={isLoggedIn}
+        userRole={userRole}
+        setIsLoggedIn={setIsLoggedIn}
+      />
 
       <div className="auth-form">
-        <h2>{isRegistering ? "Register at TableTime" : "Login to TableTime"}</h2>
+        <h2>
+          {isRegistering ? "Register at TableTime" : "Login to TableTime"}
+        </h2>
+
+        <div className="role-toggle">
+          <button
+            className={role === "user" ? "active" : ""}
+            onClick={() => setRole("user")}
+            type="button"
+          >
+            User
+          </button>
+          <button
+            className={role === "owner" ? "active" : ""}
+            onClick={() => setRole("owner")}
+            type="button"
+          >
+            Restaurant
+          </button>
+        </div>
+
         <form onSubmit={handleSubmit}>
           {isRegistering && (
             <>
-              <label>Full Name:</label>
-              <input type="text" placeholder="Enter your name" required />
+              <label>{role === "user" ? "Full Name" : "Restaurant Name"}</label>
+              <input
+                name="name"
+                type="text"
+                placeholder={
+                  role === "user" ? "Enter your name" : "Enter Restaurant Name"
+                }
+                required
+              />
+
+              {role === "owner" && (
+                <>
+                  <label>Restaurant Location:</label>
+                  <input
+                    name="location"
+                    type="text"
+                    placeholder="Enter restaurant location"
+                    required
+                  />
+                </>
+              )}
             </>
           )}
 
           <label>Email:</label>
-          <input type="email" placeholder="Enter your email" required />
+          <input
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+          />
 
           <label>Password:</label>
-          <input type="password" placeholder="Enter your password" required />
+          <input
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            required
+          />
 
-          <button type="submit">
-            {isRegistering ? "Register" : "Login"}
-          </button>
+          <button type="submit">{isRegistering ? "Register" : "Login"}</button>
         </form>
 
-        <p style={{ marginTop: "1rem", color:"black"}}>
-          {isRegistering ? "Already have an account?" : "Don't have an account?"}{" "}
-          <span
-            style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }}
-            onClick={toggleForm}
-          >
+        <p className="auth-toggle">
+          {isRegistering
+            ? "Already have an account?"
+            : "Don't have an account?"}{" "}
+          <span className="toggle-link" onClick={toggleForm}>
             {isRegistering ? "Login" : "Register"}
           </span>
         </p>
