@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { BalancePopup } from "./BalancePopup";
 
-export function PageNav({ isLoggedIn, setIsLoggedIn, userRole }) {
+export function PageNav({ isLoggedIn, setIsLoggedIn, userRole, userId }) {
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const togglePopup = () => setPopupVisible(!isPopupVisible);
+
   function handleLogout() {
     setIsLoggedIn(false);
-    // localStorage.removeItem("token");
   }
 
   return (
@@ -17,7 +21,6 @@ export function PageNav({ isLoggedIn, setIsLoggedIn, userRole }) {
       </NavLink>
 
       <ul>
-        {/* Not logged in */}
         {!isLoggedIn && (
           <>
             <li><NavLink to="/restaurants">Restaurants</NavLink></li>
@@ -31,30 +34,32 @@ export function PageNav({ isLoggedIn, setIsLoggedIn, userRole }) {
           </>
         )}
 
-        {/* Logged in as USER */}
         {isLoggedIn && userRole === "user" && (
           <>
             <li><NavLink to="/restaurants">Restaurants</NavLink></li>
             <li><NavLink to="/orders">My Orders</NavLink></li>
             <li><NavLink to="/contact">Contact</NavLink></li>
+             <li><p onClick={togglePopup} className="balance-button">Balance</p></li>
             <li>
               <button onClick={handleLogout} className="login-register-button">Logout</button>
             </li>
           </>
         )}
 
-        {/* Logged in as RESTAURANT */}
         {isLoggedIn && userRole === "owner" && (
           <>
             <li><NavLink to="/restaurant-orders">Orders In</NavLink></li>
             <li><NavLink to="/restaurant-menu">Menu</NavLink></li>
             <li><NavLink to="/contact">Contact</NavLink></li>
+            <li><p onClick={togglePopup} className="balance-button">Balance</p></li>
             <li>
               <button onClick={handleLogout} className="login-register-button">Logout</button>
             </li>
           </>
         )}
       </ul>
+
+      {isPopupVisible && <BalancePopup userId={userId} userRole={userRole}   onClose={togglePopup} />}
     </nav>
   );
 }
