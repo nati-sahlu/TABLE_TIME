@@ -1,0 +1,223 @@
+  .hamburger {
+    display: none;
+  }
+@media (max-width: 768px) {
+  /* Navbar */
+  .nav {
+    padding: 0.5rem;
+  }
+
+  .nav ul {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    background-color: rgb(220, 146, 35);
+    position: absolute;
+    top: 60px;
+    left: 0;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  .nav ul.active {
+    display: flex;
+  }
+
+  .nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .hamburger {
+    display: flex;
+    font-size: 40px;
+  }
+
+  .menu-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  /* Home Page */
+  .home-page {
+    padding-top: 100px;
+  }
+
+  .home {
+    height: 30vh;
+  }
+
+  .home h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+
+  .how-it-works {
+    padding: 1rem;
+    margin-top: 50px;
+  }
+
+  .top-restaurants-container {
+    display: block;
+  }
+
+  .top-restaurants-card {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .delivery-container {
+    padding: 1rem;
+  }
+
+  /* Restaurant Page Layout */
+  .restaurant-page {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .restaurant-list,
+  .restaurant-menu {
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    overflow-y: visible;
+  }
+
+  .restaurant-list {
+    display: block;
+  }
+
+  .restaurant-menu {
+    display: none;
+  }
+
+  .restaurant-page.show-menu .restaurant-list {
+    display: none;
+  }
+
+  .restaurant-page.show-menu .restaurant-menu {
+    display: block;
+  }
+
+  .search-bar {
+    width: 90%;
+    margin: 0 auto 1rem auto;
+  }
+
+  .restaurant-card {
+    height: auto;
+    padding: 1rem;
+  }
+
+  /* Restaurant Menu Grid View */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .menu-cards {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+  }
+
+  .menu-images {
+    width: 100%;
+    height: 120px;
+  }
+
+  .order-button {
+    width: 100%;
+  }
+
+  .back-button {
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 0.5rem;
+    background-color: #fcac23;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  /* Restaurant Owner Menu Page */
+  .menu-card {
+    width: 68%;
+    min-height: 180px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .menu-card h4 {
+    font-size: 14px;
+    margin: 0.3rem 0;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .menu-card p {
+    font-size: 13px;
+    margin: 0.2rem 0;
+  }
+
+  .menu-image {
+    height: 90px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  .delete-button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .add-form input {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/*Mobile Login Form*/
+@media (max-width: 480px) {
+  .auth-form {
+    width: 100%;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+
+  .auth-form input,
+  .auth-form button {
+    width: 100%;
+  }
+}
+
+/*Footer*/
+.footer {
+  padding: 1rem;
+  background-color: #222;
+  text-align: center;
+  color: white;
+  margin-top: auto;
+}

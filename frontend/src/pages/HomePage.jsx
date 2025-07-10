@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { PageNav } from "../components/PageNav";
-
 export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
+  const navigate = useNavigate();
+
   return (
     <div className="home-page">
       <PageNav
@@ -16,8 +18,10 @@ export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
           <br /> Foods !
         </h1>
         <div className="home-nav">
-          <span>Browse Restaurants</span>
-          <span>Register</span>
+          <span onClick={() => navigate("/restaurants")}>
+            Browse Restaurants
+          </span>
+          <span onClick={() => navigate("/login")}>Register</span>
         </div>
       </div>
 
@@ -38,18 +42,31 @@ export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
           </div>
         </div>
       </section>
+
       <section className="top-restaurants">
         <h2>⭐ Top-Rated Restaurants</h2>
         <div className="top-restaurants-container">
-          <div className="top-restaurants-card">
+          <div
+            className="top-restaurants-card"
+            onClick={() => navigate("/restaurants")}
+            style={{ cursor: "pointer" }}
+          >
             <h4>Habesha Delight</h4>
             <p>Injera • Addis Ababa • 4.8⭐</p>
           </div>
-          <div className="top-restaurants-card">
+          <div
+            className="top-restaurants-card"
+            onClick={() => navigate("/restaurants")}
+            style={{ cursor: "pointer" }}
+          >
             <h4>Spice Garden</h4>
             <p>Indian • Bole • 4.6⭐</p>
           </div>
-          <div className="top-restaurants-card">
+          <div
+            className="top-restaurants-card"
+            onClick={() => navigate("/restaurants")}
+            style={{ cursor: "pointer" }}
+          >
             <h4>La Piazza</h4>
             <p>Italian • Sarbet • 4.7⭐</p>
           </div>
@@ -87,7 +104,6 @@ export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="footer">
         <p>
           &copy; {new Date().getFullYear()} TableTime Foods. All rights

@@ -14,7 +14,7 @@ async function getRestaurantsBySearch(query, status) {
 		params.push(status);
 	}
 
-	const rows = await db.query(sql, params);
+	const [rows] = await db.query(sql, params);
 	return rows;
 }
 
