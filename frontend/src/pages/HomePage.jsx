@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PageNav } from "../components/PageNav";
-export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
-  const navigate = useNavigate();
 
+export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
+  const navigate = useNavigate(
   return (
     <div className="home-page">
       <PageNav
@@ -43,6 +43,7 @@ export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
         </div>
       </section>
 
+
       <section className="top-restaurants">
         <h2>⭐ Top-Rated Restaurants</h2>
         <div className="top-restaurants-container">
@@ -67,6 +68,7 @@ export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
             onClick={() => navigate("/restaurants")}
             style={{ cursor: "pointer" }}
           >
+
             <h4>La Piazza</h4>
             <p>Italian • Sarbet • 4.7⭐</p>
           </div>
@@ -103,6 +105,7 @@ export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
           </div>
         </div>
       </section>
+
 
       <footer className="footer">
         <p>
