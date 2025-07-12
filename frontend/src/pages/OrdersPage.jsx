@@ -1,5 +1,6 @@
 // User Orders Page
 import React, { useState, useEffect } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 export function OrdersPage({ userId }) {
   const [orders, setOrders] = useState([]);
@@ -8,7 +9,7 @@ export function OrdersPage({ userId }) {
     async function fetchOrders() {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/orders/${userId}`
+          `${API_BASE_URL}/api/orders/${userId}`
         );
         const data = await response.json();
         if (data.status === "success") {

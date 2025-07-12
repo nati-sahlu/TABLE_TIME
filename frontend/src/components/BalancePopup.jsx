@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { API_BASE_URL } from "../apiConfig";
 
 export function BalancePopup({ userId, userRole, onClose }) {
   const [balance, setBalance] = useState(0);
@@ -8,7 +9,7 @@ export function BalancePopup({ userId, userRole, onClose }) {
 
   useEffect(() => {
     async function fetchBalance() {
-      const res = await fetch(`http://localhost:4000/api/balance/${userId}`);
+      const res = await fetch(`${API_BASE_URL}/api/balance/${userId}`);
       const data = await res.json();
       setBalance(Number(data.balance));
     }

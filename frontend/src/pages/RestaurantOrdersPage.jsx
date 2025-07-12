@@ -1,5 +1,6 @@
 // Restaurant Owner Orders Page
 import React, { useState, useEffect } from "react";
+import { API_BASE_URL } from "../apiConfig";
 
 export function RestaurantOrdersPage({ ownerId }) {
   const [orders, setOrders] = useState([]);
@@ -8,7 +9,7 @@ export function RestaurantOrdersPage({ ownerId }) {
     async function fetchOrders() {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/orders/restaurant-owner/${ownerId}`
+          `${API_BASE_URL}/api/orders/restaurant-owner/${ownerId}`
         );
         const data = await response.json();
         if (data.status === "success") {
