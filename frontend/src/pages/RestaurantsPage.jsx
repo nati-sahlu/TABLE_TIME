@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../apiConfig";
 
 export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -10,11 +11,11 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
   const navigate = useNavigate();
   const isMobile = window.innerWidth <= 768;
   const [showMenuMobile, setShowMenuMobile] = useState(false);
-
+  
   useEffect(() => {
     async function fetchRestaurants() {
       try {
-        const response = await fetch("http://localhost:4000/api/restaurants");
+        const response = await fetch(`${API_BASE_URL}/api/restaurants`);
         const data = await response.json();
         setRestaurants(data);
       } catch (error) {

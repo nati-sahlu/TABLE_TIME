@@ -3,7 +3,7 @@ import { PageNav } from "../components/PageNav";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { toast } from "react-toastify";
+import { API_BASE_URL } from "../apiConfig";
 
 
 export function LoginPage({
@@ -35,7 +35,6 @@ export function LoginPage({
       payload.location = form.location.value;
     }
 
-    const API_BASE_URL = "http://localhost:4000/api";
     const endpoint = isRegistering
       ? `${API_BASE_URL}/${role}/register`
       : `${API_BASE_URL}/${role}/login`;
