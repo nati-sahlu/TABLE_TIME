@@ -4,7 +4,7 @@
   "description": "Table Time",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
      "build": "cd ../frontend && npm install && npm run build"
   },
   "keywords": [],
