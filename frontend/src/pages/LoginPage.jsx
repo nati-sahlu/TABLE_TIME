@@ -34,6 +34,10 @@ export function LoginPage({
     if (isRegistering && role === "owner") {
       payload.location = form.location.value;
     }
+	  if (!["user", "owner"].includes(role)) {
+    toast.error("Invalid role selected.");
+    return;
+  }
 
     const endpoint = isRegistering
       ? `${API_BASE_URL}/${role}/register`
