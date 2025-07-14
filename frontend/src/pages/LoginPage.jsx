@@ -39,6 +39,8 @@ export function LoginPage({
       ? `${API_BASE_URL}/${role}/register`
       : `${API_BASE_URL}/${role}/login`;
 
+	  console.log("API endpoint called:", endpoint);
+
     fetch(endpoint, {
       method: "POST",
       headers: {
