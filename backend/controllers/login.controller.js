@@ -5,7 +5,7 @@ async function login(req, res) {
   const { email, password } = req.body;
   const role = req.params.role;
 
-
+  console.log("Login endpoint hit");
   if (!role || !["user", "owner"].includes(role)) {
     return res.status(400).json({
       status: "error",
