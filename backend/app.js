@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path = require("path");
 
 const express = require("express");
 const cors = require("cors");
@@ -23,7 +24,9 @@ app.use('/api', menuRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', balanceRoutes);
 
-
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
