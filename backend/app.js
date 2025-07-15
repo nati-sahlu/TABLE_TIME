@@ -9,7 +9,7 @@ const restaurantRoutes = require('./routes/restaurant.route');
 const menuRoutes = require('./routes/menu.route');
 const orderRoutes = require('./routes/order.route');
 const balanceRoutes = require('./routes/balance.route');
-
+const contactRoute = require('./routes/contact.route');
 
 const app = express();
 
@@ -23,6 +23,7 @@ app.use('/api', restaurantRoutes);
 app.use('/api', menuRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', balanceRoutes);
+app.use('/api/contact', contactRoute);
 
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.get("*", (req, res) => {
