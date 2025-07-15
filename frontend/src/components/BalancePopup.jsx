@@ -9,16 +9,22 @@ export function BalancePopup({ userId, userRole, onClose }) {
 
   useEffect(() => {
     async function fetchBalance() {
-      const res = await fetch(`${API_BASE_URL}/api/balance/${userId}`);
-      const data = await res.json();
-      setBalance(Number(data.balance));
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/balance/${userId}`);
+        const data = await res.json();
+        setBalance(Number(data.balance || 0));
+      } catch (error) {
+        console.error("Failed to fetch balance:", error);
+        toast.error("Could not fetch balance.");
+      }
     }
+
     if (userRole === "owner") {
-      setIsDeposit(false);
+      setIsDeposit(false); // owners can only withdraw
     }
 
     fetchBalance();
-  }, [userId]);
+  }, [userId, userRole]);
 
   const handleAmountChange = (e) => {
     setAmount(e.target.value);
@@ -26,7 +32,10 @@ export function BalancePopup({ userId, userRole, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (amount <= 0) {
+
+    const numericAmount = Number(amount);
+
+    if (numericAmount <= 0) {
       toast.warn("Amount must be greater than zero.");
       return;
     }
@@ -39,18 +48,18 @@ export function BalancePopup({ userId, userRole, onClose }) {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount }),
+        body: JSON.stringify({ amount: numericAmount }),
       });
 
       const data = await res.json();
+      console.log("BALANCE ACTION RESPONSE:", data);
+
       if (data.status === "success") {
         toast.success(isDeposit ? "Deposit successful!" : "Withdrawal successful!");
-        setBalance(
-          (prev) => prev + (isDeposit ? Number(amount) : -Number(amount))
-        );
+        setBalance((prev) => prev + (isDeposit ? numericAmount : -numericAmount));
         setAmount(0);
       } else {
-        toast.error("Operation failed.");
+        toast.error(data.message || "Operation failed.");
       }
     } catch (err) {
       console.error("Error:", err);
@@ -64,7 +73,7 @@ export function BalancePopup({ userId, userRole, onClose }) {
         <h2>Account Balance: {balance.toFixed(2)} ETB</h2>
 
         <div style={{ marginBottom: "1rem", fontWeight: "bold" }}>
-          {isDeposit ? "Depositing Funds" : " Withdrawing Funds"}
+          {isDeposit ? "Depositing Funds" : "Withdrawing Funds"}
         </div>
 
         <form onSubmit={handleSubmit}>
