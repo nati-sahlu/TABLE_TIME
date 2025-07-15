@@ -2,6 +2,7 @@
 import React from "react";
 import { PageNav } from "../components/PageNav";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../apiConfig";
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export function RegisterPage() {
     };
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/register`, {
+      const res = await fetch(`${API_BASE_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

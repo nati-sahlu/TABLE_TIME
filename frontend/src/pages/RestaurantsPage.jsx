@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../apiConfig";
 
 export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -9,16 +11,16 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
   const navigate = useNavigate();
   const isMobile = window.innerWidth <= 768;
   const [showMenuMobile, setShowMenuMobile] = useState(false);
-
+  
   useEffect(() => {
     async function fetchRestaurants() {
       try {
-        const response = await fetch("http://localhost:4000/api/restaurants");
+        const response = await fetch(`${API_BASE_URL}/api/restaurants`);
         const data = await response.json();
         setRestaurants(data);
       } catch (error) {
         console.error("Failed to fetch restaurants:", error);
-        alert("Failed to load restaurants. Please try again later.");
+        toast.error("Failed to load restaurants. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -60,7 +62,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
               onClick={async () => {
                 try {
                   const res = await fetch(
-                    `http://localhost:4000/api/restaurants/${rest.id}/menu`
+                    `${API_BASE_URL}/api/restaurants/${rest.id}/menu`
                   );
                   const menu = await res.json();
                   const formattedMenu = menu.map((item) => ({
@@ -71,7 +73,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                   if (isMobile) setShowMenuMobile(true);
                 } catch (err) {
                   console.error("Failed to load menu", err);
-                  alert("Menu load failed");
+                  toast.error("Menu load failed.");
                 }
               }}
             >
@@ -115,24 +117,24 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                       className="order-button"
                       onClick={async () => {
                         if (!isLoggedIn) {
-                          alert("Please log in to place an order.");
+                          toast.warn("Please log in to place an order.");
                           navigate("/login");
                           return;
                         }
 
                         try {
                           const balanceRes = await fetch(
-                            `http://localhost:4000/api/balance/${userId}`
+                            `${API_BASE_URL}/api/balance/${userId}`
                           );
                           const balanceData = await balanceRes.json();
 
                           if (!balanceRes.ok) {
-                            alert("Failed to fetch balance.");
+                            toast.error("Failed to fetch balance.");
                             return;
                           }
 
                           if (balanceData.balance < item.price) {
-                            alert("Insufficient balance to place this order.");
+                            toast.error("Insufficient balance to place this order.");
                             return;
                           }
                           console.log("Sending order:", {
@@ -141,7 +143,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                           });
 
                           const res = await fetch(
-                            "http://localhost:4000/api/orders",
+                            "${API_BASE_URL}/api/orders",
                             {
                               method: "POST",
                               headers: {
@@ -156,7 +158,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
 
                           const data = await res.json();
                           if (res.ok && data.status === "success") {
-                            alert("Order placed!");
+                            toast.success("Order placed!");
                             handlePlaceOrder({
                               id: data.order_id,
                               restaurant: selectedRestaurant.name,
@@ -164,11 +166,11 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                               status: "pending",
                             });
                           } else {
-                            alert("Failed to place order.");
+                            toast.error("Failed to place order.");
                           }
                         } catch (err) {
                           console.error("Error placing order:", err);
-                          alert("Order failed. Try again.");
+                          toast.error("Order failed. Try again.");
                         }
                       }}
                     >

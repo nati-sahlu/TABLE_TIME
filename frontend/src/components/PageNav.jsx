@@ -4,8 +4,9 @@ import { BalancePopup } from "./BalancePopup";
 
 export function PageNav({ isLoggedIn, setIsLoggedIn, userRole, userId }) {
   const [isPopupVisible, setPopupVisible] = useState(false);
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const togglePopup = () => setPopupVisible(!isPopupVisible);
+const toggleMenu = () => setIsMenuOpen((prev) => !prev); 
 
   function handleLogout() {
     setIsLoggedIn(false);
@@ -15,12 +16,18 @@ export function PageNav({ isLoggedIn, setIsLoggedIn, userRole, userId }) {
     <nav className="nav">
       <NavLink to="/">
         <div className="logo-container">
-          <img className="logo-image" src="/logo.png" />
+          <img className="logo-image" src="/logo.png" alt="Logo" />
           <p>TableTime</p>
         </div>
       </NavLink>
 
-      <ul>
+      {/* Hamburger Menu for Mobile */}
+      <div className="hamburger" onClick={toggleMenu}>
+  {isMenuOpen ? "✕" : "☰"}
+</div>
+
+
+      <ul className={isMenuOpen ? "active" : ""}>
         {!isLoggedIn && (
           <>
             <li><NavLink to="/restaurants">Restaurants</NavLink></li>
@@ -39,7 +46,7 @@ export function PageNav({ isLoggedIn, setIsLoggedIn, userRole, userId }) {
             <li><NavLink to="/restaurants">Restaurants</NavLink></li>
             <li><NavLink to="/orders">My Orders</NavLink></li>
             <li><NavLink to="/contact">Contact</NavLink></li>
-             <li><p onClick={togglePopup} className="balance-button">Balance</p></li>
+            <li><p onClick={togglePopup} className="balance-button">Balance</p></li>
             <li>
               <button onClick={handleLogout} className="login-register-button">Logout</button>
             </li>
@@ -59,7 +66,7 @@ export function PageNav({ isLoggedIn, setIsLoggedIn, userRole, userId }) {
         )}
       </ul>
 
-      {isPopupVisible && <BalancePopup userId={userId} userRole={userRole}   onClose={togglePopup} />}
+      {isPopupVisible && <BalancePopup userId={userId} userRole={userRole} onClose={togglePopup} />}
     </nav>
   );
 }

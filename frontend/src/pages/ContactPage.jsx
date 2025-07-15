@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { PageNav } from "../components/PageNav";
+import { API_BASE_URL } from "../apiConfig";
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ export function ContactPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:4000/api/contact", {
+      const res = await fetch(`${API_BASE_URL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

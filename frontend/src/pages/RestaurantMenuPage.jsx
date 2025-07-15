@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { API_BASE_URL } from "../apiConfig";
+
 
 export function RestaurantMenuPage() {
   const restaurantId = localStorage.getItem("restaurantId");
@@ -14,7 +16,7 @@ export function RestaurantMenuPage() {
     async function fetchMenu() {
       try {
         const res = await fetch(
-          `http://localhost:4000/api/restaurants/${restaurantId}/menu`
+          `${API_BASE_URL}/api/restaurants/${restaurantId}/menu`
         );
         const data = await res.json();
         setMenuItems(data);
@@ -36,7 +38,7 @@ export function RestaurantMenuPage() {
 
     try {
       const res = await fetch(
-        `http://localhost:4000/api/restaurants/${restaurantId}/menu`,
+        `${API_BASE_URL}/api/restaurants/${restaurantId}/menu`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -65,7 +67,7 @@ export function RestaurantMenuPage() {
 
   async function handleDeleteItem(id) {
     try {
-      const res = await fetch(`http://localhost:4000/api/menu/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/menu/${id}`, {
         method: "DELETE",
       });
 

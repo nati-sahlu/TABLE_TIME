@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { PageNav } from "../components/PageNav";
 import { useNavigate } from "react-router-dom";
-
 import { toast } from "react-toastify";
+
+import { API_BASE_URL } from "../apiConfig";
 
 
 export function LoginPage({
@@ -33,11 +34,16 @@ export function LoginPage({
     if (isRegistering && role === "owner") {
       payload.location = form.location.value;
     }
+	  if (!["user", "owner"].includes(role)) {
+    toast.error("Invalid role selected.");
+    return;
+  }
 
-    const API_BASE_URL = "http://localhost:4000/api";
     const endpoint = isRegistering
-      ? `${API_BASE_URL}/${role}/register`
-      : `${API_BASE_URL}/${role}/login`;
+      ? `${API_BASE_URL}/api/${role}/register`
+      : `${API_BASE_URL}/api/${role}/login`;
+
+	  console.log("API endpoint called:", endpoint);
 
     fetch(endpoint, {
       method: "POST",
@@ -52,7 +58,6 @@ export function LoginPage({
 
         if (isRegistering) {
           if (data.status === "success") {
-
             toast.success("Registered successfully!");
             setIsRegistering(false);
           } else {
