@@ -3,7 +3,6 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
-const express = require("express");
 const cors = require("cors");
 const registerRoute = require("./routes/register.route");
 const loginRoute = require("./routes/login.route");
