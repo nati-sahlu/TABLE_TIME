@@ -12,6 +12,14 @@ export function BalancePopup({ userId, userRole, onClose }) {
       try {
         const res = await fetch(`${API_BASE_URL}/api/balance/${userId}`);
         const data = await res.json();
+
+        // Improved log with full pretty JSON output
+        console.log("Balance API Response:", JSON.stringify(data, null, 2));
+
+        if (data.balance === undefined) {
+          console.warn("Balance field is missing in API response");
+        }
+
         setBalance(Number(data.balance || 0));
       } catch (error) {
         console.error("Failed to fetch balance:", error);
@@ -52,7 +60,9 @@ export function BalancePopup({ userId, userRole, onClose }) {
       });
 
       const data = await res.json();
-      console.log("BALANCE ACTION RESPONSE:", data);
+
+      // Improved log with full pretty JSON output
+      console.log("BALANCE ACTION RESPONSE:", JSON.stringify(data, null, 2));
 
       if (data.status === "success") {
         toast.success(isDeposit ? "Deposit successful!" : "Withdrawal successful!");
