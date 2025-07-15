@@ -35,7 +35,7 @@ async function depositBalance(req, res) {
       return res.status(404).json({ status: "failure", message: "User not found" });
     }
 
-    console.log(`User ${userId} deposited ${amountNum} ETB.`);
+    console.log(`✅ User ${userId} deposited ${amountNum} ETB.`);
 
     res.json({ status: 'success' });
   } catch (error) {
@@ -61,20 +61,28 @@ async function withdrawBalance(req, res) {
       return res.status(404).json({ status: "failure", message: "User not found" });
     }
 
-    console.log(`User ${userId} requested withdrawal of ${amountNum} ETB.`);
-    console.log(`Current balance: ${user.balance}`);
+    const balanceNum = Number(user.balance);
+    if (isNaN(balanceNum)) {
+      return res.status(500).json({ status: "error", message: "Corrupted balance in database" });
+    }
 
-    if (user.balance < amountNum) {
+    console.log(`🧾 User ${userId} wants to withdraw ${amountNum} ETB`);
+    console.log(`💰 Current balance from DB: ${user.balance} (parsed: ${balanceNum})`);
+
+    if (balanceNum < amountNum) {
       return res.status(400).json({ status: "failure", message: "Insufficient balance" });
     }
 
-    const [result] = await db.query("UPDATE users SET balance = balance - ? WHERE id = ?", [amountNum, userId]);
+    const [result] = await db.query(
+      "UPDATE users SET balance = balance - ? WHERE id = ?",
+      [amountNum, userId]
+    );
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ status: "failure", message: "User not found" });
     }
 
-    console.log(`Withdrawal of ${amountNum} ETB completed for user ${userId}.`);
+    console.log(`✅ Withdrawal of ${amountNum} ETB completed for user ${userId}.`);
 
     res.json({ status: 'success' });
   } catch (error) {
