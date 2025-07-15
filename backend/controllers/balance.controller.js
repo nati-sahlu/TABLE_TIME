@@ -20,19 +20,22 @@ async function depositBalance(req, res) {
   try {
     const { userId } = req.params;
     const { amount } = req.body;
+    const amountNum = Number(amount);
 
-    if (amount <= 0) {
+    if (isNaN(amountNum) || amountNum <= 0) {
       return res.status(400).json({ status: "failure", message: "Invalid deposit amount" });
     }
 
     const [result] = await db.query(
       "UPDATE users SET balance = balance + ? WHERE id = ?",
-      [amount, userId]
+      [amountNum, userId]
     );
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ status: "failure", message: "User not found" });
     }
+
+    console.log(`User ${userId} deposited ${amountNum} ETB.`);
 
     res.json({ status: 'success' });
   } catch (error) {
@@ -45,24 +48,33 @@ async function withdrawBalance(req, res) {
   try {
     const { userId } = req.params;
     const { amount } = req.body;
+    const amountNum = Number(amount);
 
-    if (amount <= 0) {
+    if (isNaN(amountNum) || amountNum <= 0) {
       return res.status(400).json({ status: "failure", message: "Invalid withdrawal amount" });
     }
 
-    // Check balance first
-    const [[user]] = await db.query("SELECT balance FROM users WHERE id = ?", [userId]);
+    const [rows] = await db.query("SELECT balance FROM users WHERE id = ?", [userId]);
+    const user = rows[0];
 
     if (!user) {
       return res.status(404).json({ status: "failure", message: "User not found" });
     }
 
-    if (user.balance < amount) {
+    console.log(`User ${userId} requested withdrawal of ${amountNum} ETB.`);
+    console.log(`Current balance: ${user.balance}`);
+
+    if (user.balance < amountNum) {
       return res.status(400).json({ status: "failure", message: "Insufficient balance" });
     }
 
-    // Proceed with withdrawal
-    await db.query("UPDATE users SET balance = balance - ? WHERE id = ?", [amount, userId]);
+    const [result] = await db.query("UPDATE users SET balance = balance - ? WHERE id = ?", [amountNum, userId]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ status: "failure", message: "User not found" });
+    }
+
+    console.log(`Withdrawal of ${amountNum} ETB completed for user ${userId}.`);
 
     res.json({ status: 'success' });
   } catch (error) {
