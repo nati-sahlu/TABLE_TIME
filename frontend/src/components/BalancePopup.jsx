@@ -32,8 +32,8 @@ export function BalancePopup({ userId, userRole, onClose }) {
     }
 
     const endpoint = isDeposit
-      ? `http://localhost:4000/api/balance/${userId}/deposit`
-      : `http://localhost:4000/api/balance/${userId}/withdraw`;
+      ? `${API_BASE_URL}/api/balance/${userId}/deposit`
+      : `${API_BASE_URL}/api/balance/${userId}/withdraw`;
 
     try {
       const res = await fetch(endpoint, {
