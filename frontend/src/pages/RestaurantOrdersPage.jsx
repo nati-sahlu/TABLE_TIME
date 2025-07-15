@@ -26,7 +26,7 @@ export function RestaurantOrdersPage({ ownerId }) {
   const handleAccept = async (orderId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/orders/accept/${orderId}`,
+        `${API_BASE_URL}/api/orders/accept/${orderId}`,
         {
           method: "PUT",
         }

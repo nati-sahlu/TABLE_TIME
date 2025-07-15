@@ -38,7 +38,7 @@ export function RestaurantMenuPage() {
 
     try {
       const res = await fetch(
-        `http://localhost:4000/api/restaurants/${restaurantId}/menu`,
+        `${API_BASE_URL}/api/restaurants/${restaurantId}/menu`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -67,7 +67,7 @@ export function RestaurantMenuPage() {
 
   async function handleDeleteItem(id) {
     try {
-      const res = await fetch(`http://localhost:4000/api/menu/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/menu/${id}`, {
         method: "DELETE",
       });
 
