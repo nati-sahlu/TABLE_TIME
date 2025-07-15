@@ -22,7 +22,7 @@ async function placeOrder(req, res) {
       return res.status(404).json({ status: "error", message: "Menu item not found" });
     }
 
-    const price = menuItem.price;
+    const priceNum = Number(menuItem.price);
 
     // Get user's balance
     const [[user]] = await db.query(
@@ -30,7 +30,21 @@ async function placeOrder(req, res) {
       [user_id]
     );
 
-    if (!user || user.balance < price) {
+    const balanceNum = Number(user?.balance);
+
+    console.log("💰 Balance:", user?.balance, "→", balanceNum);
+    console.log("🛒 Price:", menuItem.price, "→", priceNum);
+    console.log("✅ Comparing:", balanceNum, ">=", priceNum);
+
+    if (!user) {
+      return res.status(404).json({ status: "error", message: "User not found" });
+    }
+
+    if (isNaN(balanceNum) || isNaN(priceNum)) {
+      return res.status(500).json({ status: "error", message: "Invalid number format" });
+    }
+
+    if (balanceNum < priceNum) {
       return res.status(400).json({ status: "error", message: "Insufficient balance" });
     }
 
