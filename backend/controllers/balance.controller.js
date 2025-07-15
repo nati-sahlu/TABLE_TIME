@@ -1,6 +1,5 @@
 const db = require('../config/db.config');
 
-// Get balance
 async function getBalance(req, res) {
   try {
     const { userId } = req.params;
@@ -17,7 +16,6 @@ async function getBalance(req, res) {
   }
 }
 
-// Deposit balance
 async function depositBalance(req, res) {
   try {
     const { userId } = req.params;
@@ -43,7 +41,6 @@ async function depositBalance(req, res) {
   }
 }
 
-// Withdraw balance (with validation)
 async function withdrawBalance(req, res) {
   try {
     const { userId } = req.params;
