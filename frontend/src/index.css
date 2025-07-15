@@ -76,7 +76,7 @@ h4 {
   height: 40vh;
 }
 .home-page {
-  background-image: url("public/background.png");
+  background-image: url("background.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
