@@ -1,5 +1,6 @@
 require("dotenv").config();
 const path = require("path");
+const app = express();
 
 const express = require("express");
 const cors = require("cors");
@@ -11,9 +12,6 @@ const orderRoutes = require('./routes/order.route');
 const balanceRoutes = require('./routes/balance.route');
 
 
-const app = express();
-
-app.use(cors());
 app.use(express.json());
 
 // routes
