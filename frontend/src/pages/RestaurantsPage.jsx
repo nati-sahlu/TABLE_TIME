@@ -62,7 +62,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
               onClick={async () => {
                 try {
                   const res = await fetch(
-                    `http://localhost:4000/api/restaurants/${rest.id}/menu`
+                    `${API_BASE_URL}/api/restaurants/${rest.id}/menu`
                   );
                   const menu = await res.json();
                   const formattedMenu = menu.map((item) => ({
@@ -124,7 +124,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
 
                         try {
                           const balanceRes = await fetch(
-                            `http://localhost:4000/api/balance/${userId}`
+                            `${API_BASE_URL}/api/balance/${userId}`
                           );
                           const balanceData = await balanceRes.json();
 
@@ -143,7 +143,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                           });
 
                           const res = await fetch(
-                            "http://localhost:4000/api/orders",
+                            "${API_BASE_URL}/api/orders",
                             {
                               method: "POST",
                               headers: {
