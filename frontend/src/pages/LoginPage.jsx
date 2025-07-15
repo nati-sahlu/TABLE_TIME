@@ -40,8 +40,8 @@ export function LoginPage({
   }
 
     const endpoint = isRegistering
-      ? `${API_BASE_URL}/${role}/register`
-      : `${API_BASE_URL}/${role}/login`;
+      ? `${API_BASE_URL}/api/${role}/register`
+      : `${API_BASE_URL}/api/${role}/login`;
 
 	  console.log("API endpoint called:", endpoint);
 
